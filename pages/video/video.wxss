@@ -1,0 +1,49 @@
+/* pages/video/video.wxss */
+.videoContainer{
+  padding:0 10rpx;
+}
+.videoContainer image{
+  width: 60rpx;
+  height: 60rpx;
+}
+.header{
+  display: flex;
+  align-items: center;
+}
+.header .search{
+  flex: 1;
+  border:1rpx solid #ccc;
+  margin: 0 20rpx;
+  text-align: center;
+  font-size: 26rpx;
+  line-height: 60rpx;
+  color: #434343;
+}
+.navScroll{
+  display: flex;
+  height: 60rpx;
+  white-space: nowrap;
+  box-sizing: border-box;
+  margin-bottom: 2rpx;
+}
+.navItem{
+  padding:0 30rpx;
+  font-size:28rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+.active{
+  border-bottom :1rpx solid #e4393c;
+}
+.viderScroll{
+  margin-top: 10rpx;
+  height: calc(100vh - 152rpx);
+}
+.videoItem{
+  padding:0 3%;
+}
+.videoItem .common{
+  border-radius: 10rpx;
+  width: 100%;
+  height: 360rpx;
+}

@@ -1,0 +1,19 @@
+<!--pages/songDetaul/songDetail.wxml-->
+<view class="songDetailCon">
+  <view class="author">{{songDetail.ar[0].name}}</view>
+  <view class="circle"></view>
+  <image class="needle {{isPlay?'needleRorate':''}}" src="/static/images/song/needle.png"></image>
+  <view class="discCon  {{isPlay?'dicAnim':''}}">
+    <image class="disc" src="/static/images/song/disc.png"></image>
+    <image class="musicImg" src="{{songDetail.al.picUrl}}"></image>
+  </view>
+
+  <!-- 底部播放区域 -->
+  <view class="musicCon">
+    <text class="iconfont icon-iconsMusicyemianbofangmoshiShuffle"></text>
+    <text class="iconfont icon-shangyishou" id="pre" bindtap="switchMusic"></text>
+    <text class="iconfont big {{isPlay? 'icon-zanting':'icon-bofang'}}" bindtap="handleMusicPlay"></text>
+    <text class="iconfont icon-next" id="next" bindtap="switchMusic"></text>
+    <text class="iconfont icon-iconsMusicyemianbofangmoshiPlayList"></text>
+  </view>
+</view>
