@@ -7,7 +7,8 @@ Page({
    */
   data: {
     isPlay:false,
-    songDetail:''
+    songDetail:'',
+    musicId:''
   },
 
   /**
@@ -15,7 +16,11 @@ Page({
    */
   onLoad: function (options) {
     let {musicId} = options;
-    this.getSongDetail(musicId)
+    this.setData({
+      musicId
+    })
+    this.getSongDetail(musicId);
+    this.handleMusicPlay();
   },
   async getSongDetail(musicId){
     let res = await request('/song/detail',{ids:musicId});
@@ -32,10 +37,18 @@ Page({
     this.setData({
       isPlay:!this.data.isPlay
     })
+    console.log("musicId",this.data.musicId);
+    this.musicControl(this.data.isPlay,this.data.musicId);
   },
-  musicControl(isPlay){
+  async musicControl(isPlay,musicId){
+    let muiscRes = await request('/song/url',{id:musicId})
+    let bgm = wx.getBackgroundAudioManager();
     if(isPlay){
-
+      console.log("this.data.songDetail",this.data.songDetail);
+      bgm.title = this.data.songDetail.name;
+      bgm.src = muiscRes.data[0].url;
+    }else{
+      bgm.pause();
     }
   },
   /**
