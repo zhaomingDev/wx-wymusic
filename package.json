@@ -1,0 +1,22 @@
+{
+  "name": "finalmusic",
+  "version": "1.0.0",
+  "description": "微信小程序 网易云音乐 后台使用node.js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhaomingDev/wx-wymusic.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhaomingDev/wx-wymusic/issues"
+  },
+  "homepage": "https://github.com/zhaomingDev/wx-wymusic#readme",
+  "dependencies": {
+    "pubsub-js": "^1.9.4"
+  }
+}

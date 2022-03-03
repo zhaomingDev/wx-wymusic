@@ -1,5 +1,7 @@
 // pages/songDetaul/songDetail.js
+import PubSub from 'pubsub-js'
 import request from '../../utils/request'
+const appInstance = getApp();
 Page({
 
   /**
@@ -20,7 +22,28 @@ Page({
       musicId
     })
     this.getSongDetail(musicId);
-    this.handleMusicPlay();
+    if(appInstance.globalData.isMusicPlay && appInstance.globalData.musicId === musicId){
+      this.setData({
+        isPlay:true
+      })
+    }
+    this.bgm = wx.getBackgroundAudioManager();
+    this.bgm.onPlay(()=>{
+      this.changePlayState(true);
+      appInstance.globalData.musicId = musicId;
+    });
+    this.bgm.onPause(()=>{
+      this.changePlayState(false);
+    });
+    this.bgm.onStop(()=>{
+      this.changePlayState(false);
+    })
+  },
+  changePlayState(isPlay){
+    this.setData({
+      isPlay
+    })
+    appInstance.globalData.isMusicPlay = isPlay;
   },
   async getSongDetail(musicId){
     let res = await request('/song/detail',{ids:musicId});
@@ -34,22 +57,22 @@ Page({
     }
   },
   handleMusicPlay(){
-    this.setData({
-      isPlay:!this.data.isPlay
-    })
-    console.log("musicId",this.data.musicId);
-    this.musicControl(this.data.isPlay,this.data.musicId);
+    let isPlay = !this.data.isPlay;
+    this.musicControl(isPlay,this.data.musicId);
   },
   async musicControl(isPlay,musicId){
     let muiscRes = await request('/song/url',{id:musicId})
-    let bgm = wx.getBackgroundAudioManager();
     if(isPlay){
-      console.log("this.data.songDetail",this.data.songDetail);
-      bgm.title = this.data.songDetail.name;
-      bgm.src = muiscRes.data[0].url;
+      this.bgm.title = this.data.songDetail.name;
+      this.bgm.src = muiscRes.data[0].url;
     }else{
-      bgm.pause();
+      this.bgm.pause();
     }
+  },
+  // 切歌 上一首 下一首
+  switchMusic(event){
+    let type = event.currentTarget.id;
+    console.log(type);
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
